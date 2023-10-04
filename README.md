@@ -55,9 +55,7 @@
         ID адреса (INT, FOREIGN KEY REFERENCES Адресы(ID), NN)
         ID клиента (INT, FOREIGN KEY REFERENCES Клиенты(ID), NN)
         ID водителя (INT, FOREIGN KEY REFERENCES Водители(ID), NN)
-        ID диспетчера (INT, FOREIGN KEY REFERENCES Диспетчеры(ID), NN)
-
-        
+        ID диспетчера (INT, FOREIGN KEY REFERENCES Диспетчеры(ID), NN)      
     Связи:
        Связь с таблицей "Адресы" в отношении "Многие к одному" (Many-to-One) через поле ID адреса.
        Связь с таблицей "Клиенты" в отношении "Многие к одному" (Many-to-One) через поле ID клиента.
@@ -69,7 +67,7 @@
 
     Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        Номер телефона (CHAR(13), NN) 
+        Телефон (CHAR(13) ~ '+375[0-9]{9}' NN,) 
         Вес груза (INT, NN)
         ID пользователя (INT, UNIQUE, NN)
    Связи:
@@ -87,71 +85,65 @@
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
         Имя (VARCHAR(32), NN)
         Фамилия (VARCHAR(32), NN)
-        Номер телефона (CHAR(13), NN) 
-        ID фрукта (INT, FOREIGN KEY REFERENCES Фрукты(ID), NN)
-        ID клиента (INT, FOREIGN KEY REFERENCES Клиенты(ID), NN)
+        Телефон (CHAR(13) ~ '+375[0-9]{9}' NN,)
+        ID пользователя (INT, UNIQUE KEY REFERENCES пользователи(ID), NN)
     Связи:
-        Связь с таблицей "Фрукты" в отношении "Многие к одному" (Many-to-One) через поле ID автомобиля.
-        Связь с таблицей "Клиенты" в отношении "Многие к одному" (Many-to-One) через поле ID клиента.
+        Связь с таблицей "Пользователи" в отношении "Один к одному" (One-to-One) через поле ID пользователя.
+        Связь с таблицей "Заказы" в отношении "Один к многим" (One-to-Many) через поле ID заказы.
 
-  6. "Сотрудники":
+  6. "Водители":
 
     Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        Зарплата (INT, NN)
+        Имя (VARCHAR(32), NN)
+        Фамилия (VARCHAR(32), NN)
+        Стаж водителя(INT)
+        ID машины (INT, UNIQUE, NN)
         ID пользователя (INT, UNIQUE, NN)
-        
-        ID времени (INT, FOREIGN KEY REFERENCES Рабочее время сотрудников(ID))
     Связи:
-        Связь с таблицей "Рабочее время сотрудников" в отношении "Многие к одному" (Many-to-One) через поле ID времени.
-       Связь с таблицей "Пользователи" в отношении "Один к одному" (One-to-One) через поле ID клиента.
+        Связь с таблицей "Пользователи" в отношении "Один к одному" (One-to-One) через поле ID клиента.
+       Связь с таблицей "Машины" в отношении "Один к одному" (One-to-One) через поле ID клиента.
        
-  7. "Рабочее время сотрудников":
+  7. "Тип машины":
     
     Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        Дата и время начала работы (DATETIME, NN)
-        Дата и время окончания работы (DATETIME, NN)
+        Тип (VARCHAR(64), NN)
+      Связи:
+        Связь с таблицей "Машины" в отношении "Один к многим" (One-to-Many) через поле ID типа машины.
         
-  8. "Доставка":
+  8. "Адреса":
       
     Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        ID заказа (INT, UNIQUE, NN)
-        Дата доставки (DATETIME, NN)
+        Адрес, с которого необходимо забрать груз (VARCHAR(64), NN)
+        Адрес доставки (VARCHAR(64), NN)
     Связи:
-        Связь с таблицей "Заказы" в отношении "Один к одному" (One-to-One) через поле ID заказа.
+        Связь с таблицей "Заказы" в отношении "Один к многим" (One-to-Many) через поле ID адреса.
       
-  9. "Производители":
+  9. "Пользователи":
 
     Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        Страна производителя (VARCHAR(50), NN)
-        Имя комании (VARCHAR(50), NN)
-        
- 10. "Пользователи":
-
-    Поля:
-        ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        Имя ((VARCHAR(50), NN)
-        Фамилия ((VARCHAR(50), NN)
+        Имя (VARCHAR(50), NN)
+        Фамилия (VARCHAR(50), NN)
         Телефон (CHAR(13) ~ '+375[0-9]{9}' NN,)
-        Пароль ((VARCHAR(50), NN)
+        Пароль (VARCHAR(50), NN)
         ID Роли (INT, FOREIGN KEY REFERENCES Роли(ID))
     Связи:
         Связь с таблицей "Роли" в отношении "Многие к одному" (Many-to-One) через поле ID Роли.
 
-  11. "Должности":
+  10. "Тип услуги":
     Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        Название(VARCHAR(50), NN)
+        Тип(VARCHAR(50), NN)
       
-  12. "Должности/Сотрудники"(вспомогательная):
+  11. "Тип услуги/Заказ"(вспомогательная):
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        ID должности(INT, FOREIGN KEY REFERENCES(Должности), NN)
-        ID сотрудника(INT, FOREIGN KEY REFERENCES(Сотрудники), NN)
+        ID услуги(INT, FOREIGN KEY REFERENCES(услуга), NN)
+        ID заказа(INT, FOREIGN KEY REFERENCES(заказа), NN)
     Связи:
-        Связь между Должности/Сотрудники(Many to many) через поля  ID должности и ID сотрудника
+        Связь между услуги/заказа(Many to many) через поля ID услуга и ID заказа
       
         
 
@@ -159,7 +151,6 @@
     
 # 5. Диаграмма: 
 
-![image](https://github.com/ArseniiShmatov09/Python_Labs_Shmatov_Arsenii_153505/assets/94675119/b0c63305-9511-420c-a901-82a86d353d7b)
+https://github.com/Arrttemka/DB_labs/blob/master/photo_1_2023-10-04_11-21-51.jpg
 
-![image](https://github.com/ArseniiShmatov09/Python_Labs_Shmatov_Arsenii_153505/assets/94675119/88c304f9-bd17-4379-ad9f-3933c589598f)
-
+https://github.com/Arrttemka/DB_labs/blob/master/photo_2_2023-10-04_11-21-51.jpg
