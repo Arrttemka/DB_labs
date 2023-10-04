@@ -26,7 +26,7 @@
 Диспетчер:
   
   Все, что и клиент
-  CRUD ко всем заказам
+  CRUD к машинам и кузовам
   
 Админ:
 
@@ -66,8 +66,7 @@
   3. "Клиенты":
 
     Поля:
-        ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
-        Телефон (CHAR(13) ~ '+375[0-9]{9}' NN,) 
+        ID (INT, PRIMARY KEY, AUTOINCREMENT, NN) 
         Вес груза (INT, NN)
         ID пользователя (INT, UNIQUE, NN)
    Связи:
@@ -85,7 +84,6 @@
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
         Имя (VARCHAR(32), NN)
         Фамилия (VARCHAR(32), NN)
-        Телефон (CHAR(13) ~ '+375[0-9]{9}' NN,)
         ID пользователя (INT, UNIQUE KEY REFERENCES пользователи(ID), NN)
     Связи:
         Связь с таблицей "Пользователи" в отношении "Один к одному" (One-to-One) через поле ID пользователя.
@@ -137,13 +135,14 @@
     Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
         Тип(VARCHAR(50), NN)
-      
-  11. "Тип услуги/Заказ"(вспомогательная):
+    Связи:
+        Связь c тип услуги(One to many) через поля ID услуги
+  12. "Тип услуги/Заказ"(вспомогательная):
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
         ID услуги(INT, FOREIGN KEY REFERENCES(услуга), NN)
         ID заказа(INT, FOREIGN KEY REFERENCES(заказа), NN)
     Связи:
-        Связь между услуги/заказа(Many to many) через поля ID услуга и ID заказа
+        Связь между услуги/заказа(Many to many) через поля ID услуги и ID заказа
       
         
 
