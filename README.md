@@ -151,6 +151,6 @@
     
 # 5. Диаграмма: 
 
-https://github.com/Arrttemka/DB_labs/blob/master/photo_1_2023-10-04_11-21-51.jpg
+![Image alt](https://github.com/{Arrttemka}/{DB_labs}/raw/{master}/photo_1_2023-10-04_11-21-51.jpg)
 
 https://github.com/Arrttemka/DB_labs/blob/master/photo_2_2023-10-04_11-21-51.jpg
