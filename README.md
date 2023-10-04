@@ -138,6 +138,7 @@
     Связи:
         Связь c тип услуги(One to many) через поля ID услуги
   12. "Тип услуги/Заказ"(вспомогательная):
+    Поля:
         ID (INT, PRIMARY KEY, AUTOINCREMENT, NN)
         ID услуги(INT, FOREIGN KEY REFERENCES(услуга), NN)
         ID заказа(INT, FOREIGN KEY REFERENCES(заказа), NN)
